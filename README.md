@@ -1,6 +1,7 @@
 # newsapp
 
 News app using API key from https:&#x2F;&#x2F;newsapi.org&#x2F;
+A simple news app made using flutter and dart language;
 
 ## Getting Started
 
