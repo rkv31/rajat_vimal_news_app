@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/screens/newsPage.dart';
 
-class CardTile extends StatelessWidget {
+class CardTile extends StatefulWidget {
   final String author;
   final String title;
   final String description;
@@ -22,9 +22,16 @@ class CardTile extends StatelessWidget {
       this.time,
       this.source,
       this.index});
+
+  @override
+  _CardTileState createState() => _CardTileState();
+}
+
+class _CardTileState extends State<CardTile> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    ThemeData themeData = Theme.of(context);
     return Container(
       margin: EdgeInsets.all(5.0),
       child: Card(
@@ -36,11 +43,11 @@ class CardTile extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => NewsPage(
-                    title: this.title,
-                    url: this.url,
-                    urlImage: this.urlImage,
-                    source: this.source,
-                    index: this.index),
+                    title: this.widget.title,
+                    url: this.widget.url,
+                    urlImage: this.widget.urlImage,
+                    source: this.widget.source,
+                    index: this.widget.index),
               ),
             );
           },
@@ -57,11 +64,11 @@ class CardTile extends StatelessWidget {
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8.0),
                             topRight: Radius.circular(8.0)),
-                        child: (this.urlImage != '')
+                        child: (this.widget.urlImage != '')
                             ? Hero(
-                                tag: 'photo${this.index}',
+                                tag: 'photo${this.widget.index}',
                                 child: Image.network(
-                                  this.urlImage,
+                                  this.widget.urlImage,
                                   fit: BoxFit.fill,
                                 ),
                               )
@@ -70,7 +77,11 @@ class CardTile extends StatelessWidget {
                                   child: Text(
                                     'Image Not Available',
                                     style: TextStyle(
-                                        color: Colors.black26, fontSize: 20),
+                                        color: (themeData.brightness ==
+                                                Brightness.light)
+                                            ? Colors.black26
+                                            : Colors.white.withOpacity(0.3),
+                                        fontSize: 20),
                                   ),
                                 ),
                               ),
@@ -81,7 +92,7 @@ class CardTile extends StatelessWidget {
                       left: 10,
                       width: width / 2,
                       child: Text(
-                        this.author,
+                        this.widget.author,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 12,
@@ -92,15 +103,23 @@ class CardTile extends StatelessWidget {
                       bottom: 10,
                       right: 10,
                       child: Chip(
-                        backgroundColor: Colors.white,
+                        backgroundColor:
+                            (themeData.brightness == Brightness.light)
+                                ? Colors.white
+                                : Colors.grey[700],
                         avatar: Icon(
                           Icons.calendar_today,
-                          color: Colors.black38,
+                          color: (themeData.brightness == Brightness.light)
+                              ? Colors.black38
+                              : Colors.white.withOpacity(0.5),
                           size: 15,
                         ),
-                        label: Text(this.date),
-                        labelStyle:
-                            TextStyle(color: Colors.black38, fontSize: 12),
+                        label: Text(this.widget.date),
+                        labelStyle: TextStyle(
+                            color: (themeData.brightness == Brightness.light)
+                                ? Colors.black38
+                                : Colors.white.withOpacity(0.5),
+                            fontSize: 12),
                       ),
                     )
                   ],
@@ -112,28 +131,35 @@ class CardTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      this.title,
+                      this.widget.title,
                       style: TextStyle(fontSize: 16.0, height: 1.5),
                     ),
                     Text(
-                      this.description,
+                      this.widget.description,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Colors.black38, height: 1.9),
+                      style: TextStyle(
+                          color: (themeData.brightness == Brightness.light)
+                              ? Colors.black38
+                              : Colors.white.withOpacity(0.3),
+                          height: 1.9),
                     ),
                     SizedBox(height: 20.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          this.source,
+                          this.widget.source,
                           textAlign: TextAlign.left,
                         ),
                         Text(
-                          this.time,
+                          this.widget.time,
                           textDirection: TextDirection.ltr,
                           textAlign: TextAlign.left,
-                          style: TextStyle(color: Colors.black38),
+                          style: TextStyle(
+                              color: (themeData.brightness == Brightness.light)
+                                  ? Colors.black38
+                                  : Colors.white.withOpacity(0.3)),
                         ),
                       ],
                     )

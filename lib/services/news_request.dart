@@ -11,13 +11,10 @@ class NewsRequest {
     String url;
     await DotEnv().load('assets/api.env');
     String apiKey = DotEnv().env['NEWS_API'];
-    print(apiKey);
     if (query == '') {
       url = 'https://newsapi.org/v2/top-headlines?country=in&apiKey=$apiKey';
-      print('Getting latest news of India......');
     } else {
       url = 'https://newsapi.org/v2/top-headlines?q=$query&apiKey=$apiKey';
-      print('Getting latest news of $query......');
     }
     http.Response response = await http.get(url);
     if (response.statusCode == 200) {

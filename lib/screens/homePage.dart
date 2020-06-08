@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/screens/card_tile.dart';
 import 'package:newsapp/model/newsModel.dart';
 import 'package:newsapp/services/news_request.dart';
+import 'package:newsapp/main.dart';
 
 class HomePage extends StatefulWidget {
+  bool darkThemeEnabled;
+
+  HomePage(this.darkThemeEnabled);
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -56,13 +60,26 @@ class _HomePageState extends State<HomePage> {
             },
             icon: customIcon,
           ),
+          IconButton(
+            icon: Icon(Icons.invert_colors),
+            onPressed: () {
+              setState(() {
+                (widget.darkThemeEnabled)
+                    ? widget.darkThemeEnabled = false
+                    : widget.darkThemeEnabled = true;
+                bloc.changeTheme = widget.darkThemeEnabled;
+              });
+            },
+          ),
         ],
       ),
-      body: projectWidget(),
+      body: projectWidget(context),
     );
   }
 
-  Widget projectWidget() {
+  Widget projectWidget(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
+
     return FutureBuilder(
       builder: (context, newsSnap) {
         if (newsSnap.connectionState == ConnectionState.none ||
@@ -71,7 +88,11 @@ class _HomePageState extends State<HomePage> {
             child: Center(
               child: Text(
                 'News Not Available',
-                style: TextStyle(color: Colors.black26, fontSize: 20),
+                style: TextStyle(
+                    color: (themeData.brightness == Brightness.light)
+                        ? Colors.black26
+                        : Colors.white,
+                    fontSize: 20),
               ),
             ),
           );
@@ -88,7 +109,10 @@ class _HomePageState extends State<HomePage> {
                         padding: EdgeInsets.only(left: 15.0, top: 10.0),
                         child: Text(
                           'Top Headlines',
-                          style: TextStyle(color: Colors.black54),
+                          style: TextStyle(
+                              color: (themeData.brightness == Brightness.light)
+                                  ? Colors.black54
+                                  : Colors.white.withOpacity(0.5)),
                         ),
                       )
                     : Container(),
