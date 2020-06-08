@@ -2,7 +2,7 @@
 
 News app using API key from https:&#x2F;&#x2F;newsapi.org&#x2F;
 A simple news app made using flutter and dart language.
-Link for video demo- https://drive.google.com/file/d/11SmcyOK9RYUU1Nx-IIStO9gYMZglwVz7/view?usp=sharing
+Link for video demo- https://drive.google.com/file/d/1Mu5BaA2NOj1BWbO0FxwCAo4wx2gyREYW/view?usp=sharing
 
 ## Getting Started
 
